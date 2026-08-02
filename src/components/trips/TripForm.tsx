@@ -25,8 +25,8 @@ type CatchPatch = { [K in keyof Catch]?: Catch[K] | undefined };
 function applyPatch(c: Catch, patch: CatchPatch): Catch {
   const next: Catch = { ...c };
   for (const [key, value] of Object.entries(patch)) {
-    if (value === undefined) delete (next as Record<string, unknown>)[key];
-    else (next as Record<string, unknown>)[key] = value;
+    if (value === undefined) delete (next as unknown as Record<string, unknown>)[key];
+    else (next as unknown as Record<string, unknown>)[key] = value;
   }
   return next;
 }
