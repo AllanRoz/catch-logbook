@@ -1,24 +1,79 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Fish, Gauge, Ruler, Route as RouteIcon, Star, Weight } from "lucide-react";
+import { useMemo } from "react";
+import { StatCard } from "@/components/ui/StatCard";
+import { EmptyState } from "@/components/ui/EmptyState";
+import { useTrips } from "@/context/TripsContext";
+import { summarize } from "@/utils/stats";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  head: () => ({
+    meta: [
+      { title: "Dashboard — CatchLog fishing journal" },
+      {
+        name: "description",
+        content:
+          "Your fishing season at a glance: trips logged, fish caught, personal bests and species trends.",
+      },
+      { property: "og:title", content: "Dashboard — CatchLog fishing journal" },
+      {
+        property: "og:description",
+        content: "Your fishing season at a glance, stored right in your browser.",
+      },
+    ],
+  }),
+  component: Dashboard,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
+function Dashboard() {
+  const { trips, hydrated, storageError } = useTrips();
+  const s = useMemo(() => summarize(trips), [trips]);
+
+  const fmt = (n: number | null, unit: string) =>
+    n === null ? "—" : `${n.toFixed(1)}${unit}`;
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="space-y-8">
+      <header className="space-y-2">
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+          Tight lines
+        </p>
+        <h1 className="text-3xl font-semibold sm:text-4xl">Your season so far</h1>
+        <p className="max-w-xl text-sm text-muted-foreground">
+          Every trip you log lives in this browser only — nothing is uploaded anywhere.
+        </p>
+      </header>
+
+      {storageError ? (
+        <p className="panel border-destructive/50 p-4 text-sm text-destructive">
+          {storageError}
+        </p>
+      ) : null}
+
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <StatCard label="Trips" value={String(s.trips)} icon={RouteIcon} />
+        <StatCard label="Fish caught" value={String(s.fish)} icon={Fish} />
+        <StatCard
+          label="Biggest fish"
+          value={s.biggest ? `${s.biggest.weight} lb` : "—"}
+          hint={s.biggest?.species}
+          icon={Weight}
+        />
+        <StatCard
+          label="Favorite species"
+          value={s.favoriteSpecies ?? "—"}
+          icon={Star}
+        />
+        <StatCard label="Avg length" value={fmt(s.avgLength, '"')} icon={Ruler} />
+        <StatCard label="Avg weight" value={fmt(s.avgWeight, " lb")} icon={Gauge} />
+      </section>
+
+      {hydrated && trips.length === 0 ? (
+        <EmptyState
+          title="No trips logged yet"
+          description="Start your journal by logging a trip — species, gear, weather and photos all live here."
+        />
+      ) : null}
     </div>
   );
 }
