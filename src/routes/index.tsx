@@ -71,7 +71,7 @@ function Dashboard() {
       {hydrated && trips.length === 0 ? (
         <EmptyState
           title="No trips logged yet"
-          description="Start your journal by logging a trip — species, gear, weather and photos all live here."
+          description="Start your journal by logging a trip — species, gear, weather and notes all live here."
         />
       ) : null}
     </div>
