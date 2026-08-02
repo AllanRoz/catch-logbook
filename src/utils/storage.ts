@@ -1,10 +1,9 @@
 // Persistence layer.
 //
 // Architectural note: localStorage is synchronous, string-only and capped at
-// roughly 5 MB per origin. That budget is fine for thousands of trips, but
-// photos stored as base64 data URLs will exhaust it quickly, so images are
-// downscaled before saving (see utils/image.ts) and writes surface a quota
-// error instead of failing silently.
+// roughly 5 MB per origin. Trips are text-only (no images are ever stored),
+// so that budget comfortably holds many thousands of entries; writes still
+// surface a quota error instead of failing silently.
 //
 // Every read is guarded for SSR (`typeof window`) because the app is
 // server-rendered before hydration and `localStorage` does not exist there.
@@ -38,7 +37,7 @@ export function saveTrips(trips: Trip[]): { ok: boolean; error?: string } {
     return {
       ok: false,
       error:
-        "Browser storage is full. Remove some photos or export your data as a backup.",
+        "Browser storage is full. Export your data as a backup, then remove some trips.",
     };
   }
 }

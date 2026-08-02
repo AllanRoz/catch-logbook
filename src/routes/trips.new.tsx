@@ -1,4 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { TripForm, emptyTrip } from "@/components/trips/TripForm";
+import { useTrips } from "@/context/TripsContext";
 
 export const Route = createFileRoute("/trips/new")({
   head: () => ({
@@ -6,13 +8,12 @@ export const Route = createFileRoute("/trips/new")({
       { title: "Log a trip — CatchLog" },
       {
         name: "description",
-        content:
-          "Record a fishing trip: conditions, catches, gear, notes and photos.",
+        content: "Record a fishing trip: conditions, catches, gear and notes.",
       },
       { property: "og:title", content: "Log a trip — CatchLog" },
       {
         property: "og:description",
-        content: "Record conditions, catches, gear, notes and photos.",
+        content: "Record conditions, catches, gear and notes.",
       },
     ],
   }),
@@ -20,12 +21,26 @@ export const Route = createFileRoute("/trips/new")({
 });
 
 function NewTripPage() {
+  const { addTrip } = useTrips();
+  const navigate = useNavigate();
+
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-semibold">Log a fishing trip</h1>
-      <p className="panel p-6 text-sm text-muted-foreground">
-        The full trip form (conditions, catches, gear, notes, photos) is milestone 2.
-      </p>
+      <header className="space-y-1">
+        <h1 className="text-3xl font-semibold">Log a fishing trip</h1>
+        <p className="text-sm text-muted-foreground">
+          Everything stays in this browser — nothing is uploaded.
+        </p>
+      </header>
+      <TripForm
+        initial={emptyTrip()}
+        submitLabel="Save trip"
+        onCancel={() => navigate({ to: "/trips" })}
+        onSubmit={(draft) => {
+          addTrip(draft);
+          navigate({ to: "/trips" });
+        }}
+      />
     </div>
   );
 }

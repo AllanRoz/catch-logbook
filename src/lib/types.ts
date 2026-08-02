@@ -35,8 +35,6 @@ export interface Trip {
   notes?: string;
   memorableMoments?: string;
   lessonsLearned?: string;
-  /** data: URLs, kept small — see utils/storage.ts for the quota caveat */
-  photos: string[];
   createdAt: string;
   updatedAt: string;
 }
