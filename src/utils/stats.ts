@@ -6,11 +6,14 @@ import type { Trip } from "@/lib/types";
 export const totalFish = (trip: Trip) =>
   trip.catches.reduce((sum, c) => sum + (c.count || 0), 0);
 
+const toMinutes = (hhmm: string) => {
+  const [h = 0, m = 0] = hhmm.split(":").map(Number);
+  return h * 60 + m;
+};
+
 export function tripDurationHours(trip: Trip) {
   if (!trip.startTime || !trip.endTime) return null;
-  const [sh, sm] = trip.startTime.split(":").map(Number);
-  const [eh, em] = trip.endTime.split(":").map(Number);
-  const mins = eh * 60 + em - (sh * 60 + sm);
+  const mins = toMinutes(trip.endTime) - toMinutes(trip.startTime);
   return mins > 0 ? mins / 60 : null;
 }
 
