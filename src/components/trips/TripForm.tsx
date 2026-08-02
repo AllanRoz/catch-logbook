@@ -51,7 +51,8 @@ export function TripForm({
   const set = <K extends keyof TripDraft>(key: K, value: TripDraft[K]) =>
     setDraft((d) => ({ ...d, [key]: value }));
 
-  const setCatch = (id: string, patch: Partial<Catch>) =>
+  type CatchPatch = { [K in keyof Catch]?: Catch[K] | undefined };
+  const setCatch = (id: string, patch: CatchPatch) =>
     setDraft((d) => ({
       ...d,
       catches: d.catches.map((c) => (c.id === id ? { ...c, ...patch } : c)),

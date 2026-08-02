@@ -14,6 +14,7 @@ import { Route as RecordsRouteImport } from './routes/records'
 import { Route as StatsRouteImport } from './routes/stats'
 import { Route as TripsIndexRouteImport } from './routes/trips.index'
 import { Route as TripsNewRouteImport } from './routes/trips.new'
+import { Route as TripsIdEditRouteImport } from './routes/trips.$id.edit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const TripsNewRoute = TripsNewRouteImport.update({
   path: '/trips/new',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TripsIdEditRoute = TripsIdEditRouteImport.update({
+  id: '/trips/$id/edit',
+  path: '/trips/$id/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/stats': typeof StatsRoute
   '/trips/new': typeof TripsNewRoute
   '/trips/': typeof TripsIndexRoute
+  '/trips/$id/edit': typeof TripsIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/stats': typeof StatsRoute
   '/trips/new': typeof TripsNewRoute
   '/trips': typeof TripsIndexRoute
+  '/trips/$id/edit': typeof TripsIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,22 @@ export interface FileRoutesById {
   '/stats': typeof StatsRoute
   '/trips/new': typeof TripsNewRoute
   '/trips/': typeof TripsIndexRoute
+  '/trips/$id/edit': typeof TripsIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/records' | '/stats' | '/trips/new' | '/trips/'
+  fullPaths:
+    '/' | '/records' | '/stats' | '/trips/new' | '/trips/' | '/trips/$id/edit'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/records' | '/stats' | '/trips/new' | '/trips'
-  id: '__root__' | '/' | '/records' | '/stats' | '/trips/new' | '/trips/'
+  to: '/' | '/records' | '/stats' | '/trips/new' | '/trips' | '/trips/$id/edit'
+  id:
+    | '__root__'
+    | '/'
+    | '/records'
+    | '/stats'
+    | '/trips/new'
+    | '/trips/'
+    | '/trips/$id/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -77,6 +94,7 @@ export interface RootRouteChildren {
   StatsRoute: typeof StatsRoute
   TripsNewRoute: typeof TripsNewRoute
   TripsIndexRoute: typeof TripsIndexRoute
+  TripsIdEditRoute: typeof TripsIdEditRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +134,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TripsNewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trips/$id/edit': {
+      id: '/trips/$id/edit'
+      path: '/trips/$id/edit'
+      fullPath: '/trips/$id/edit'
+      preLoaderRoute: typeof TripsIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -125,17 +150,8 @@ const rootRouteChildren: RootRouteChildren = {
   StatsRoute: StatsRoute,
   TripsNewRoute: TripsNewRoute,
   TripsIndexRoute: TripsIndexRoute,
+  TripsIdEditRoute: TripsIdEditRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
