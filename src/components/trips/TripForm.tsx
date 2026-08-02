@@ -18,6 +18,19 @@ const field =
   "w-full rounded-xl border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary/60 focus:ring-2 focus:ring-primary/25";
 const labelCls = "block space-y-1.5 text-sm font-medium text-muted-foreground";
 
+type CatchPatch = { [K in keyof Catch]?: Catch[K] | undefined };
+
+/** Cleared fields are removed rather than set to undefined so the stored
+ *  objects stay minimal and JSON round-trips cleanly. */
+function applyPatch(c: Catch, patch: CatchPatch): Catch {
+  const next: Catch = { ...c };
+  for (const [key, value] of Object.entries(patch)) {
+    if (value === undefined) delete (next as Record<string, unknown>)[key];
+    else (next as Record<string, unknown>)[key] = value;
+  }
+  return next;
+}
+
 function emptyCatch(): Catch {
   return { id: newId(), species: "", count: 1, released: true };
 }
@@ -51,11 +64,10 @@ export function TripForm({
   const set = <K extends keyof TripDraft>(key: K, value: TripDraft[K]) =>
     setDraft((d) => ({ ...d, [key]: value }));
 
-  type CatchPatch = { [K in keyof Catch]?: Catch[K] | undefined };
   const setCatch = (id: string, patch: CatchPatch) =>
     setDraft((d) => ({
       ...d,
-      catches: d.catches.map((c) => (c.id === id ? { ...c, ...patch } : c)),
+      catches: d.catches.map((c) => (c.id === id ? applyPatch(c, patch) : c)),
     }));
 
   const addCatch = () =>
