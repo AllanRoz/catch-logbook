@@ -9,159 +9,27 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as RecordsRouteImport } from './routes/records'
-import { Route as StatsRouteImport } from './routes/stats'
-import { Route as TripsIndexRouteImport } from './routes/trips.index'
-import { Route as TripsNewRouteImport } from './routes/trips.new'
-import { Route as TripsIdEditRouteImport } from './routes/trips.$id.edit'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RecordsRoute = RecordsRouteImport.update({
-  id: '/records',
-  path: '/records',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StatsRoute = StatsRouteImport.update({
-  id: '/stats',
-  path: '/stats',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TripsIndexRoute = TripsIndexRouteImport.update({
-  id: '/trips/',
-  path: '/trips/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TripsNewRoute = TripsNewRouteImport.update({
-  id: '/trips/new',
-  path: '/trips/new',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TripsIdEditRoute = TripsIdEditRouteImport.update({
-  id: '/trips/$id/edit',
-  path: '/trips/$id/edit',
-  getParentRoute: () => rootRouteImport,
-} as any)
-
-export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/records': typeof RecordsRoute
-  '/stats': typeof StatsRoute
-  '/trips/new': typeof TripsNewRoute
-  '/trips/': typeof TripsIndexRoute
-  '/trips/$id/edit': typeof TripsIdEditRoute
-}
-export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/records': typeof RecordsRoute
-  '/stats': typeof StatsRoute
-  '/trips/new': typeof TripsNewRoute
-  '/trips': typeof TripsIndexRoute
-  '/trips/$id/edit': typeof TripsIdEditRoute
-}
+export interface FileRoutesByFullPath {}
+export interface FileRoutesByTo {}
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/records': typeof RecordsRoute
-  '/stats': typeof StatsRoute
-  '/trips/new': typeof TripsNewRoute
-  '/trips/': typeof TripsIndexRoute
-  '/trips/$id/edit': typeof TripsIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    '/' | '/records' | '/stats' | '/trips/new' | '/trips/' | '/trips/$id/edit'
+  fullPaths: never
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/records' | '/stats' | '/trips/new' | '/trips' | '/trips/$id/edit'
-  id:
-    | '__root__'
-    | '/'
-    | '/records'
-    | '/stats'
-    | '/trips/new'
-    | '/trips/'
-    | '/trips/$id/edit'
+  to: never
+  id: '__root__'
   fileRoutesById: FileRoutesById
 }
-export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  RecordsRoute: typeof RecordsRoute
-  StatsRoute: typeof StatsRoute
-  TripsNewRoute: typeof TripsNewRoute
-  TripsIndexRoute: typeof TripsIndexRoute
-  TripsIdEditRoute: typeof TripsIdEditRoute
-}
+export interface RootRouteChildren {}
 
 declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/records': {
-      id: '/records'
-      path: '/records'
-      fullPath: '/records'
-      preLoaderRoute: typeof RecordsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/stats': {
-      id: '/stats'
-      path: '/stats'
-      fullPath: '/stats'
-      preLoaderRoute: typeof StatsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/trips/': {
-      id: '/trips/'
-      path: '/trips'
-      fullPath: '/trips/'
-      preLoaderRoute: typeof TripsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/trips/new': {
-      id: '/trips/new'
-      path: '/trips/new'
-      fullPath: '/trips/new'
-      preLoaderRoute: typeof TripsNewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/trips/$id/edit': {
-      id: '/trips/$id/edit'
-      path: '/trips/$id/edit'
-      fullPath: '/trips/$id/edit'
-      preLoaderRoute: typeof TripsIdEditRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-  }
+  interface FileRoutesByPath {}
 }
 
-const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  RecordsRoute: RecordsRoute,
-  StatsRoute: StatsRoute,
-  TripsNewRoute: TripsNewRoute,
-  TripsIndexRoute: TripsIndexRoute,
-  TripsIdEditRoute: TripsIdEditRoute,
-}
+const rootRouteChildren: RootRouteChildren = {}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
