@@ -17,7 +17,6 @@ import {
   LineElement,
   PointElement,
   Tooltip,
-  type ChartOptions,
 } from "chart.js";
 import { useEffect, useState } from "react";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
@@ -71,7 +70,7 @@ export function useChartTheme() {
   return theme;
 }
 
-function baseOptions(theme: ChartTheme, showLegend: boolean): ChartOptions<never> {
+function baseOptions(theme: ChartTheme, showLegend: boolean) {
   return {
     responsive: true,
     maintainAspectRatio: false,
@@ -82,7 +81,7 @@ function baseOptions(theme: ChartTheme, showLegend: boolean): ChartOptions<never
         labels: { color: theme.text, boxWidth: 12, usePointStyle: true },
       },
     },
-  } as ChartOptions<never>;
+  };
 }
 
 function axisOptions(theme: ChartTheme) {
