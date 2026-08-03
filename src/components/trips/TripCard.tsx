@@ -1,5 +1,12 @@
-import { Link } from "@tanstack/react-router";
-import { Copy, Droplets, MapPin, Pencil, Thermometer, Trash2 } from "lucide-react";
+import { Link } from "react-router-dom";
+import {
+  Copy,
+  Droplets,
+  MapPin,
+  Pencil,
+  Thermometer,
+  Trash2,
+} from "lucide-react";
 import type { Trip } from "@/lib/types";
 import { totalFish, tripDurationHours } from "@/utils/stats";
 
@@ -17,7 +24,9 @@ export function TripCard({
 }) {
   const fish = totalFish(trip);
   const hours = tripDurationHours(trip);
-  const species = [...new Set(trip.catches.map((c) => c.species).filter(Boolean))];
+  const species = [
+    ...new Set(trip.catches.map((c) => c.species).filter(Boolean)),
+  ];
 
   return (
     <article className="panel panel-hover space-y-4 p-5">
@@ -38,14 +47,17 @@ export function TripCard({
         </div>
         <div className="flex shrink-0 items-center gap-1">
           <Link
-            to="/trips/$id/edit"
-            params={{ id: trip.id }}
+            to={`/trips/${trip.id}/edit`}
             aria-label="Edit trip"
             className={iconBtn}
           >
             <Pencil className="size-4" />
           </Link>
-          <button onClick={onDuplicate} aria-label="Duplicate trip" className={iconBtn}>
+          <button
+            onClick={onDuplicate}
+            aria-label="Duplicate trip"
+            className={iconBtn}
+          >
             <Copy className="size-4" />
           </button>
           <button
@@ -83,7 +95,9 @@ export function TripCard({
           </span>
         ) : null}
         {trip.weather ? (
-          <span className="rounded-full bg-secondary px-2.5 py-1">{trip.weather}</span>
+          <span className="rounded-full bg-secondary px-2.5 py-1">
+            {trip.weather}
+          </span>
         ) : null}
       </div>
 
