@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Plus, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -7,37 +7,17 @@ import { useTrips } from "@/context/TripsContext";
 import type { WaterType } from "@/lib/types";
 import { totalFish } from "@/utils/stats";
 
-export const Route = createFileRoute("/trips/")({
-  head: () => ({
-    meta: [
-      { title: "Trip history — CatchLog" },
-      {
-        name: "description",
-        content: "Browse, search and filter every fishing trip you have logged.",
-      },
-      { property: "og:title", content: "Trip history — CatchLog" },
-      {
-        property: "og:description",
-        content: "Browse, search and filter every fishing trip you have logged.",
-      },
-    ],
-  }),
-  component: TripsPage,
-});
-
 type SortKey = "newest" | "oldest" | "most-fish";
 
 const control =
   "rounded-xl border border-border bg-surface px-3 py-2 text-sm text-foreground outline-none focus:border-primary/60 focus:ring-2 focus:ring-primary/25";
 
-function TripsPage() {
+export default function TripsPage() {
   const { trips, hydrated, deleteTrip, duplicateTrip } = useTrips();
   const [query, setQuery] = useState("");
   const [water, setWater] = useState<WaterType | "all">("all");
   const [sort, setSort] = useState<SortKey>("newest");
 
-  // Derived, not stored: filtering state in a memo keeps a single source of
-  // truth (the trips array) and avoids stale duplicated lists.
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
     const list = trips.filter((t) => {
@@ -47,7 +27,9 @@ function TripsPage() {
         t.location,
         t.weather ?? "",
         t.notes ?? "",
-        ...t.catches.map((c) => `${c.species} ${c.lure ?? ""} ${c.technique ?? ""}`),
+        ...t.catches.map(
+          (c) => `${c.species} ${c.lure ?? ""} ${c.technique ?? ""}`,
+        ),
       ]
         .join(" ")
         .toLowerCase();

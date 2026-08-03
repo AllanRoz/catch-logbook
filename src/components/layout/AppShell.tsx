@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, NavLink } from "react-router-dom";
 import { BarChart3, Fish, Home, Plus, Trophy } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -8,6 +8,11 @@ const nav = [
   { to: "/stats", label: "Stats", icon: BarChart3 },
   { to: "/records", label: "Records", icon: Trophy },
 ] as const;
+
+const navLinkClass =
+  "flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium transition-colors hover:bg-secondary/60";
+const mobileLinkClass =
+  "flex flex-1 flex-col items-center gap-1 rounded-lg py-1 text-[11px] font-medium";
 
 /** App chrome: sticky top nav on desktop, bottom bar on mobile, plus the FAB. */
 export function AppShell({ children }: { children: ReactNode }) {
@@ -26,21 +31,21 @@ export function AppShell({ children }: { children: ReactNode }) {
 
           <nav className="ml-auto hidden items-center gap-1 sm:flex">
             {nav.map(({ to, label, icon: Icon }) => (
-              <Link
+              <NavLink
                 key={to}
                 to={to}
-                activeOptions={{ exact: to === "/" }}
-                activeProps={{
-                  className: "bg-secondary text-foreground",
-                }}
-                inactiveProps={{
-                  className: "text-muted-foreground hover:text-foreground",
-                }}
-                className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium transition-colors hover:bg-secondary/60"
+                end={to === "/"}
+                className={({ isActive }) =>
+                  `${navLinkClass} ${
+                    isActive
+                      ? "bg-secondary text-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`
+                }
               >
                 <Icon className="size-4" />
                 {label}
-              </Link>
+              </NavLink>
             ))}
           </nav>
 
@@ -62,17 +67,19 @@ export function AppShell({ children }: { children: ReactNode }) {
       <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border/70 bg-background/85 backdrop-blur-xl sm:hidden">
         <div className="flex items-center justify-around px-2 py-2">
           {nav.map(({ to, label, icon: Icon }) => (
-            <Link
+            <NavLink
               key={to}
               to={to}
-              activeOptions={{ exact: to === "/" }}
-              activeProps={{ className: "text-primary" }}
-              inactiveProps={{ className: "text-muted-foreground" }}
-              className="flex flex-1 flex-col items-center gap-1 rounded-lg py-1 text-[11px] font-medium"
+              end={to === "/"}
+              className={({ isActive }) =>
+                `${mobileLinkClass} ${
+                  isActive ? "text-primary" : "text-muted-foreground"
+                }`
+              }
             >
               <Icon className="size-5" />
               {label}
-            </Link>
+            </NavLink>
           ))}
         </div>
       </nav>

@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { CalendarRange, Fish, Ruler, Waves } from "lucide-react";
 import { useMemo } from "react";
 import {
@@ -19,26 +18,7 @@ import {
   waterBreakdown,
 } from "@/utils/stats";
 
-export const Route = createFileRoute("/stats")({
-  head: () => ({
-    meta: [
-      { title: "Statistics — CatchLog" },
-      {
-        name: "description",
-        content:
-          "Charts for species, lures, seasons and catch frequency across your fishing log.",
-      },
-      { property: "og:title", content: "Statistics — CatchLog" },
-      {
-        property: "og:description",
-        content: "Charts for species, lures, seasons and catch frequency.",
-      },
-    ],
-  }),
-  component: StatsPage,
-});
-
-function StatsPage() {
+export default function StatsPage() {
   const { trips, hydrated } = useTrips();
 
   const data = useMemo(

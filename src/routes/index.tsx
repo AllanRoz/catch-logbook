@@ -1,4 +1,3 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { Fish, Gauge, Ruler, Route as RouteIcon, Star, Weight } from "lucide-react";
 import { useMemo } from "react";
 import { StatCard } from "@/components/ui/StatCard";
@@ -6,26 +5,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { useTrips } from "@/context/TripsContext";
 import { summarize } from "@/utils/stats";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Dashboard — CatchLog fishing journal" },
-      {
-        name: "description",
-        content:
-          "Your fishing season at a glance: trips logged, fish caught, personal bests and species trends.",
-      },
-      { property: "og:title", content: "Dashboard — CatchLog fishing journal" },
-      {
-        property: "og:description",
-        content: "Your fishing season at a glance, stored right in your browser.",
-      },
-    ],
-  }),
-  component: Dashboard,
-});
-
-function Dashboard() {
+export default function Dashboard() {
   const { trips, hydrated, storageError } = useTrips();
   const s = useMemo(() => summarize(trips), [trips]);
 

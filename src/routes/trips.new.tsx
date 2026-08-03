@@ -1,26 +1,8 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "react-router-dom";
 import { TripForm, emptyTrip } from "@/components/trips/TripForm";
 import { useTrips } from "@/context/TripsContext";
 
-export const Route = createFileRoute("/trips/new")({
-  head: () => ({
-    meta: [
-      { title: "Log a trip — CatchLog" },
-      {
-        name: "description",
-        content: "Record a fishing trip: conditions, catches, gear and notes.",
-      },
-      { property: "og:title", content: "Log a trip — CatchLog" },
-      {
-        property: "og:description",
-        content: "Record conditions, catches, gear and notes.",
-      },
-    ],
-  }),
-  component: NewTripPage,
-});
-
-function NewTripPage() {
+export default function NewTripPage() {
   const { addTrip } = useTrips();
   const navigate = useNavigate();
 
@@ -35,10 +17,10 @@ function NewTripPage() {
       <TripForm
         initial={emptyTrip()}
         submitLabel="Save trip"
-        onCancel={() => navigate({ to: "/trips" })}
+        onCancel={() => navigate("/trips")}
         onSubmit={(draft) => {
           addTrip(draft);
-          navigate({ to: "/trips" });
+          navigate("/trips");
         }}
       />
     </div>

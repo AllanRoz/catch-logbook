@@ -1,27 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Clock, Fish, Ruler, Trophy, Weight } from "lucide-react";
 import { useMemo } from "react";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { useTrips } from "@/context/TripsContext";
 import { computeRecords, type CatchRecord } from "@/utils/stats";
-
-export const Route = createFileRoute("/records")({
-  head: () => ({
-    meta: [
-      { title: "Personal bests — CatchLog" },
-      {
-        name: "description",
-        content: "Your biggest, longest and heaviest fish plus your best single trip.",
-      },
-      { property: "og:title", content: "Personal bests — CatchLog" },
-      {
-        property: "og:description",
-        content: "Your biggest, longest and heaviest fish, tracked automatically.",
-      },
-    ],
-  }),
-  component: RecordsPage,
-});
 
 const prettyDate = (iso: string) =>
   new Date(`${iso}T00:00:00`).toLocaleDateString(undefined, {
@@ -71,7 +53,7 @@ function RecordCard({
   );
 
   return tripId ? (
-    <Link to="/trips/$id/edit" params={{ id: tripId }} className="panel panel-hover block p-5">
+    <Link to={`/trips/${tripId}/edit`} className="panel panel-hover block p-5">
       {body}
     </Link>
   ) : (
@@ -95,12 +77,16 @@ function SpeciesRow({ rec }: { rec: CatchRecord }) {
   );
 }
 
-function RecordsPage() {
+export default function RecordsPage() {
   const { trips, hydrated } = useTrips();
   const r = useMemo(() => computeRecords(trips), [trips]);
 
   const hasAny =
-    r.heaviest || r.longest || r.bestTrip || r.longestSession || r.speciesRecords.length;
+    r.heaviest ||
+    r.longest ||
+    r.bestTrip ||
+    r.longestSession ||
+    r.speciesRecords.length;
 
   return (
     <div className="space-y-8">
@@ -175,9 +161,7 @@ function RecordsPage() {
           </section>
 
           <section className="panel p-5">
-            <h2 className="font-display text-base font-semibold">
-              Best per species
-            </h2>
+            <h2 className="font-display text-base font-semibold">Best per species</h2>
             <p className="mb-2 text-xs text-muted-foreground">
               Heaviest fish recorded for each species you have logged.
             </p>
