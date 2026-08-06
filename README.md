@@ -7,7 +7,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/AllanRoz/catch-logbook">
-    <img src="public/catch_logbook_icon2.png" alt="Logo" width="80" height="80">
+    <img src="public/catch_logbook_icon.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">CatchLog</h3>
