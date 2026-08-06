@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Plus, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { DataTransfer } from "@/components/trips/DataTransfer";
 import { TripCard } from "@/components/trips/TripCard";
 import { useTrips } from "@/context/TripsContext";
 import type { WaterType } from "@/lib/types";
@@ -123,6 +124,8 @@ export default function TripsPage() {
           />
         ))}
       </div>
+
+      <DataTransfer />
     </div>
   );
 }
