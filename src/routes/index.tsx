@@ -1,4 +1,11 @@
-import { Fish, Gauge, Ruler, Route as RouteIcon, Star, Weight } from "lucide-react";
+import {
+  Fish,
+  Gauge,
+  Ruler,
+  Route as RouteIcon,
+  Star,
+  Weight,
+} from "lucide-react";
 import { useMemo } from "react";
 import { StatCard } from "@/components/ui/StatCard";
 import { EmptyState } from "@/components/ui/EmptyState";
@@ -9,20 +16,28 @@ export default function Dashboard() {
   const { trips, hydrated, storageError } = useTrips();
   const s = useMemo(() => summarize(trips), [trips]);
 
-  const fmt = (n: number | null, unit: string) => (n === null ? "—" : `${n.toFixed(1)}${unit}`);
+  const fmt = (n: number | null, unit: string) =>
+    n === null ? "—" : `${n.toFixed(1)}${unit}`;
 
   return (
     <div className="space-y-8">
       <header className="space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Tight lines</p>
-        <h1 className="text-3xl font-semibold sm:text-4xl">Your season so far</h1>
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+          Tight lines
+        </p>
+        <h1 className="text-3xl font-semibold sm:text-4xl">
+          Your season so far
+        </h1>
         <p className="max-w-xl text-sm text-muted-foreground">
-          Every trip you log lives in this browser only — nothing is uploaded anywhere.
+          Every trip you log lives in this browser only — nothing is uploaded
+          anywhere.
         </p>
       </header>
 
       {storageError ? (
-        <p className="panel border-destructive/50 p-4 text-sm text-destructive">{storageError}</p>
+        <p className="panel border-destructive/50 p-4 text-sm text-destructive">
+          {storageError}
+        </p>
       ) : null}
 
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -30,13 +45,25 @@ export default function Dashboard() {
         <StatCard label="Fish caught" value={String(s.fish)} icon={Fish} />
         <StatCard
           label="Biggest fish"
-          value={s.biggest ? `${s.biggest.weight}   lb` : "—"}
+          value={s.biggest ? `${s.biggest.weight} lb` : "—"}
           hint={s.biggest?.species}
           icon={Weight}
         />
-        <StatCard label="Favorite species" value={s.favoriteSpecies ?? "—"} icon={Star} />
-        <StatCard label="Avg length" value={fmt(s.avgLength, '"')} icon={Ruler} />
-        <StatCard label="Avg weight" value={fmt(s.avgWeight, "   lb")} icon={Gauge} />
+        <StatCard
+          label="Favorite species"
+          value={s.favoriteSpecies ?? "—"}
+          icon={Star}
+        />
+        <StatCard
+          label="Avg length"
+          value={fmt(s.avgLength, '"')}
+          icon={Ruler}
+        />
+        <StatCard
+          label="Avg weight"
+          value={fmt(s.avgWeight, " lb")}
+          icon={Gauge}
+        />
       </section>
 
       {hydrated && trips.length === 0 ? (
