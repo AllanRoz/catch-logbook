@@ -82,7 +82,11 @@ export default function RecordsPage() {
   const r = useMemo(() => computeRecords(trips), [trips]);
 
   const hasAny =
-    r.heaviest || r.longest || r.bestTrip || r.longestSession || r.speciesRecords.length;
+    r.heaviest ||
+    r.longest ||
+    r.bestTrip ||
+    r.longestSession ||
+    r.speciesRecords.length;
 
   return (
     <div className="space-y-8">
@@ -106,7 +110,7 @@ export default function RecordsPage() {
           <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <RecordCard
               title="Heaviest fish"
-              value={r.heaviest ? `${r.heaviest.value}   lb` : "—"}
+              value={r.heaviest ? `${r.heaviest.value} lb` : "—"}
               {...(r.heaviest
                 ? {
                     species: r.heaviest.species,
@@ -144,7 +148,11 @@ export default function RecordsPage() {
             />
             <RecordCard
               title="Longest session"
-              value={r.longestSession ? `${r.longestSession.hours.toFixed(1)} h` : "—"}
+              value={
+                r.longestSession
+                  ? `${r.longestSession.hours.toFixed(1)} h`
+                  : "—"
+              }
               {...(r.longestSession
                 ? {
                     location: r.longestSession.location,
@@ -157,7 +165,9 @@ export default function RecordsPage() {
           </section>
 
           <section className="panel p-5">
-            <h2 className="font-display text-base font-semibold">Best per species</h2>
+            <h2 className="font-display text-base font-semibold">
+              Best per species
+            </h2>
             <p className="mb-2 text-xs text-muted-foreground">
               Heaviest fish recorded for each species you have logged.
             </p>
