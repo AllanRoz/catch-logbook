@@ -124,6 +124,8 @@ export default function TripsPage() {
           />
         ))}
       </div>
+
+      <DataTransfer />
     </div>
   );
 }
