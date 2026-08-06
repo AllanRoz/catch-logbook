@@ -12,7 +12,7 @@
     "format": "prettier --write .",
     "build:gh": "cross-env GITHUB_PAGES=true vite build && node scripts/gh-pages-postbuild.mjs",
     "predeploy": "npm run build:gh",
-    "deploy": "gh-pages -d dist/client -t"
+    "deploy": "gh-pages -d dist/client"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
