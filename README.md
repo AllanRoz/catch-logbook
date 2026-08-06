@@ -7,7 +7,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/AllanRoz/catch-logbook">
-    <img src="public/catch_logbook_icon.png" alt="Logo" width="80" height="80">
+    <img src="public/catch_logbook_icon2.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">CatchLog</h3>
@@ -36,25 +36,25 @@ Built as a fully static React application, all data is stored locally in the bro
 
 ### Key Features
 
-* **Fishing Trip Journal:** Log detailed information about every fishing trip, including location, date, weather conditions, equipment, and notes.
-* **Catch Tracking:** Record species, length, weight, bait or lure used, fishing technique, and whether the fish was released or kept.
-* **Interactive Dashboard:** View personal fishing statistics including total trips, total catches, favorite species, largest fish, and average catch size.
-* **Powerful Search & Filters:** Quickly search and filter trips by species, location, lure, technique, water type, or date.
-* **Trip Management:** Create, edit, duplicate, and delete fishing trips with an intuitive interface.
-* **Photo Gallery:** Upload and organize photos from each fishing trip to preserve memorable catches.
-* **Analytics & Charts:** Visualize fishing history with interactive charts showing catch trends, species distribution, seasonal activity, and more.
-* **Personal Bests:** Automatically track record catches including largest fish, heaviest fish, longest fish, and most successful trips.
-* **Local Data Storage:** All data is securely stored in the browser using LocalStorage with optional JSON export and import for backups.
+- **Fishing Trip Journal:** Log detailed information about every fishing trip, including location, date, weather conditions, equipment, and notes.
+- **Catch Tracking:** Record species, length, weight, bait or lure used, fishing technique, and whether the fish was released or kept.
+- **Interactive Dashboard:** View personal fishing statistics including total trips, total catches, favorite species, largest fish, and average catch size.
+- **Powerful Search & Filters:** Quickly search and filter trips by species, location, lure, technique, water type, or date.
+- **Trip Management:** Create, edit, duplicate, and delete fishing trips with an intuitive interface.
+- **Photo Gallery:** Upload and organize photos from each fishing trip to preserve memorable catches.
+- **Analytics & Charts:** Visualize fishing history with interactive charts showing catch trends, species distribution, seasonal activity, and more.
+- **Personal Bests:** Automatically track record catches including largest fish, heaviest fish, longest fish, and most successful trips.
+- **Local Data Storage:** All data is securely stored in the browser using LocalStorage with optional JSON export and import for backups.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
 
-* [![React][React.js]][React-url]
-* [![JavaScript][JavaScript.js]][JavaScript-url]
-* [![Vite][Vite.dev]][Vite-url]
-* [![TailwindCSS][Tailwind.css]][Tailwind-url]
-* [![Chart.js][Chart.js]][Chart-url]
+- [![React][React.js]][React-url]
+- [![JavaScript][JavaScript.js]][JavaScript-url]
+- [![Vite][Vite.dev]][Vite-url]
+- [![TailwindCSS][Tailwind.css]][Tailwind-url]
+- [![Chart.js][Chart.js]][Chart-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -66,7 +66,7 @@ Follow these steps to set up and run a local copy of the project on your machine
 
 ### Prerequisites
 
-* npm
+- npm
 
   ```sh
   npm install npm@latest -g
@@ -120,68 +120,68 @@ Follow these steps to set up and run a local copy of the project on your machine
 
 Record every fishing trip with detailed information including:
 
-* Date and time
-* Fishing location
-* Water type
-* Weather conditions
-* Water temperature
-* Personal notes
-* Photos
+- Date and time
+- Fishing location
+- Water type
+- Weather conditions
+- Water temperature
+- Personal notes
+- Photos
 
 ### 🐟 Catch Log
 
 Track every fish you catch with:
 
-* Species
-* Length
-* Weight
-* Lure or bait
-* Rod and reel setup
-* Fishing technique
-* Released or kept
+- Species
+- Length
+- Weight
+- Lure or bait
+- Rod and reel setup
+- Fishing technique
+- Released or kept
 
 ### 📊 Analytics Dashboard
 
 Monitor your fishing performance with charts displaying:
 
-* Total catches
-* Favorite species
-* Monthly fishing activity
-* Catch trends
-* Most successful lures
-* Largest catches
-* Fishing frequency
+- Total catches
+- Favorite species
+- Monthly fishing activity
+- Catch trends
+- Most successful lures
+- Largest catches
+- Fishing frequency
 
 ### 🏆 Personal Bests
 
 Automatically maintain records for:
 
-* Largest fish
-* Longest fish
-* Heaviest fish
-* Most fish caught in one trip
-* Longest fishing trip
+- Largest fish
+- Longest fish
+- Heaviest fish
+- Most fish caught in one trip
+- Longest fishing trip
 
 ### 🔍 Search & Organization
 
 Quickly find previous trips by filtering with:
 
-* Species
-* Date
-* Location
-* Lure
-* Technique
-* Water type
+- Species
+- Date
+- Location
+- Lure
+- Technique
+- Water type
 
 ### 💾 Local Storage
 
 Your fishing journal remains completely private.
 
-* No accounts required
-* No cloud storage
-* No backend server
-* Automatic LocalStorage persistence
-* Import and export your journal as JSON
+- No accounts required
+- No cloud storage
+- No backend server
+- Automatic LocalStorage persistence
+- Import and export your journal as JSON
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -191,16 +191,16 @@ Your fishing journal remains completely private.
 
 Planned features include:
 
-* Interactive fishing map with saved fishing locations
-* Weather history integration
-* Moon phase tracking
-* GPS route recording
-* Catch heatmaps
-* Offline Progressive Web App (PWA) support
-* Achievement badges
-* Fishing trip sharing
-* Equipment inventory management
-* Advanced analytics and AI-powered catch insights
+- Interactive fishing map with saved fishing locations
+- Weather history integration
+- Moon phase tracking
+- GPS route recording
+- Catch heatmaps
+- Offline Progressive Web App (PWA) support
+- Achievement badges
+- Fishing trip sharing
+- Equipment inventory management
+- Advanced analytics and AI-powered catch insights
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
