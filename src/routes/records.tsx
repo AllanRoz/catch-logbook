@@ -82,11 +82,7 @@ export default function RecordsPage() {
   const r = useMemo(() => computeRecords(trips), [trips]);
 
   const hasAny =
-    r.heaviest ||
-    r.longest ||
-    r.bestTrip ||
-    r.longestSession ||
-    r.speciesRecords.length;
+    r.heaviest || r.longest || r.bestTrip || r.longestSession || r.speciesRecords.length;
 
   return (
     <div className="space-y-8">
@@ -110,7 +106,7 @@ export default function RecordsPage() {
           <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <RecordCard
               title="Heaviest fish"
-              value={r.heaviest ? `${r.heaviest.value} lb` : "—"}
+              value={r.heaviest ? `${r.heaviest.value}   lb` : "—"}
               {...(r.heaviest
                 ? {
                     species: r.heaviest.species,
